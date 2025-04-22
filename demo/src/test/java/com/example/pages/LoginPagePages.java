@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.example.uistore.BookStoreLoginUI;
+import com.example.utils.WebDriverHelper;
 
 public class LoginPagePages {
 
@@ -12,11 +13,13 @@ public class LoginPagePages {
     private WebDriver driver = null;
 
     public LoginPagePages(WebDriver driver) {
+
         this.driver = driver;
+
     }
 
     public void enter_username() {
-        WebElement usernameBox = driver.findElement(loginUiLocators.usernameXpath);
+        WebElement usernameBox = WebDriverHelper.getElementByXpath(loginUiLocators.usernameXpath);
         usernameBox.sendKeys("Test@123");
 
     }

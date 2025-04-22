@@ -17,12 +17,14 @@ import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
 
 import com.example.pages.LoginPagePages;
+import com.example.utils.WebDriverHelper;
 
 public class Hybrid {
 
-    private static WebDriver driver = null;
+    WebDriver driver = null;
 
-    LoginPagePages pages   = null;
+    LoginPagePages pages = null;
+    WebDriverHelper helper = null;
 
     @BeforeMethod
     public void launch_browser() throws MalformedURLException, InterruptedException {
@@ -34,6 +36,7 @@ public class Hybrid {
         driver.get("https://demoqa.com/frames/");
         String currentURL = driver.getCurrentUrl();
         pages = new LoginPagePages(driver);
+        helper = new WebDriverHelper(driver);
         System.out.println(currentURL);
         Thread.sleep(4000);
     }
