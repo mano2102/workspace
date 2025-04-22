@@ -20,11 +20,15 @@ public class ExcelReader {
 
         XSSFWorkbook workBook = new XSSFWorkbook(fis);
         XSSFSheet sheet = workBook.getSheet("Sheet1");
-        XSSFRow row = sheet.getRow(5);
-        XSSFCell usernameCell = row.getCell(0);
-        XSSFCell passwordCell = row.getCell(1);
-        // System.out.println(passwordCell);
-        System.out.println(usernameCell.getStringCellValue());
-        System.out.println(passwordCell.getStringCellValue());
+        // XSSFRow row = sheet.getRow(5);
+
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+            XSSFRow row = sheet.getRow(i);
+            for (int j = 0; j < row.getLastCellNum(); j++) {
+                XSSFCell cell = row.getCell(j);
+                System.out.println(cell.getStringCellValue());
+            }
+        }
+
     }
 }
