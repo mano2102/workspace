@@ -18,15 +18,15 @@ public class LoginPagePages {
 
     }
 
-    public void enter_username() {
+    public void enter_username(String username) {
         WebElement usernameBox = WebDriverHelper.getElementByXpath(loginUiLocators.usernameXpath);
-        usernameBox.sendKeys("Test@123");
+        usernameBox.sendKeys(username);
 
     }
 
-    public void enter_password() {
+    public void enter_password(String password) {
         WebElement passwordBox = driver.findElement(loginUiLocators.passwordXpath);
-        passwordBox.sendKeys("Test@123");
+        passwordBox.sendKeys(password);
     }
 
     public void login_button() {

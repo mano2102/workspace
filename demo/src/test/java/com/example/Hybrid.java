@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -17,6 +18,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
 
 import com.example.pages.LoginPagePages;
+import com.example.utils.ExcelReader;
 import com.example.utils.WebDriverHelper;
 
 public class Hybrid {
@@ -64,10 +66,14 @@ public class Hybrid {
     }
 
     @Test
-    public void login_demoPage() {
+    public void login_demoPage() throws IOException {
         driver.get("https://demoqa.com/login");
-        pages.enter_username();
-        pages.enter_password();
+        String excelPath = "/home/coder/project/workspace/demo/testdata/login.xlsx";
+        String excelSheetName = "Sheet1";
+        String username = ExcelReader.readExcel(excelPath, excelSheetName, 1, 0);
+        String password = ExcelReader.readExcel(excelPath, excelSheetName, 1, 1);
+        pages.enter_username(username);
+        pages.enter_password(password);
         pages.login_button();
 
     }
