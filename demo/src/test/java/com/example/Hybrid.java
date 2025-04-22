@@ -21,7 +21,8 @@ import com.example.pages.LoginPagePages;
 public class Hybrid {
 
     private static WebDriver driver = null;
-    LoginPagePages pages = null;
+
+    LoginPagePages pages   = null;
 
     @BeforeMethod
     public void launch_browser() throws MalformedURLException, InterruptedException {
@@ -32,6 +33,7 @@ public class Hybrid {
         // getting the url
         driver.get("https://demoqa.com/frames/");
         String currentURL = driver.getCurrentUrl();
+        pages = new LoginPagePages(driver);
         System.out.println(currentURL);
         Thread.sleep(4000);
     }
@@ -60,7 +62,10 @@ public class Hybrid {
 
     @Test
     public void login_demoPage() {
-        driver.get("https://demoqa.com/profile");
+        driver.get("https://demoqa.com/login");
+        pages.enter_username();
+        pages.enter_password();
+        pages.login_button();
 
     }
 
