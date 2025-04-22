@@ -16,9 +16,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
 
+import com.example.pages.LoginPagePages;
+
 public class Hybrid {
 
     private static WebDriver driver = null;
+    LoginPagePages pages = null;
 
     @BeforeMethod
     public void launch_browser() throws MalformedURLException, InterruptedException {
@@ -59,7 +62,6 @@ public class Hybrid {
     public void login_demoPage() {
         driver.get("https://demoqa.com/profile");
 
-        
     }
 
 }
