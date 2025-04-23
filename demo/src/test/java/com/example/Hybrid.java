@@ -17,6 +17,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.model.Report;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.example.pages.LoginPagePages;
 import com.example.utils.ExcelReader;
 import com.example.utils.Screenshot;
@@ -25,13 +29,16 @@ import com.example.utils.WebDriverHelper;
 public class Hybrid {
 
     public WebDriver driver = null;
-      Extent
+    ExtentSparkReporter spark = new ExtentSparkReporter("/target/extentreports.html");
+    ExtentReports report = new ExtentReports();
+
     LoginPagePages pages = null;
     WebDriverHelper helper = null;
     Screenshot shot = null;
 
     @BeforeMethod
     public void launch_browser() throws MalformedURLException, InterruptedException {
+        report.attachReporter(spark);
         String gridurl = "http://localhost:4444";
         driver = new RemoteWebDriver(new URL(gridurl), new ChromeOptions());
         // maximize
@@ -51,6 +58,8 @@ public class Hybrid {
         if (driver != null) {
             driver.quit();
         }
+        if (report != null)
+            report.flush();
     }
 
     @Test(enabled = false)
@@ -76,6 +85,7 @@ public class Hybrid {
         String username = ExcelReader.readExcel(excelPath, excelSheetName, 1, 0);
         String password = ExcelReader.readExcel(excelPath, excelSheetName, 1, 1);
         pages.enter_username(username);
+        report.createTest("TC_001").log(Status.PASS, "Extent report with tc 001");
         shot.screenshot("username_screenshot");
         pages.enter_password(password);
         shot.screenshot("password_screenshot");

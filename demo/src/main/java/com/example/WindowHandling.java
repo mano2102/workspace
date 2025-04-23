@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.Select;
 public class WindowHandling {
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
 
-      
+        
         String gridurl = "http://localhost:4444";
         WebDriver driver = new RemoteWebDriver(new URL(gridurl), new ChromeOptions());
         // maximize
