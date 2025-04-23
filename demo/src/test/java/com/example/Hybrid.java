@@ -66,7 +66,6 @@ public class Hybrid {
         if (driver != null) {
             driver.quit();
         }
-       
 
     }
 
@@ -101,10 +100,28 @@ public class Hybrid {
         pages.enter_username(username);
         // report.createTest("TC_001").log(Status.PASS, "Extent report with tc 001");
         shot.screenshot("username_screenshot");
-        // pages.enter_password(password);
+        pages.enter_password(password);
         // shot.screenshot("password_screenshot");
+
         pages.login_button();
-        
+
+        String logoutXpath = "(//button[@id=\"submit\" and@type='button'])[1]";
+        boolean isDisplayed = false;
+
+        try {
+            WebElement logoutButton = driver.findElement(By.xpath(logoutXpath));
+            isDisplayed = logoutButton.isDisplayed();
+
+        } catch (Exception e) {
+            report.createTest("Exeception caused in login ");
+        }
+
+        if (isDisplayed) {
+            report.createTest("Testcasepassed").log(Status.PASS, "Login In done");
+        } else {
+
+            report.createTest("Testcase failed").log(Status.FAIL, "Login failed");
+        }
 
     }
 
