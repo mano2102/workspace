@@ -29,7 +29,7 @@ import com.example.utils.WebDriverHelper;
 public class Hybrid {
 
     public WebDriver driver = null;
-    ExtentSparkReporter spark = new ExtentSparkReporter("/target/extentreports.html");
+    ExtentSparkReporter spark = new ExtentSparkReporter("reports/extentreports.html");
     ExtentReports report = new ExtentReports();
 
     LoginPagePages pages = null;
@@ -58,7 +58,7 @@ public class Hybrid {
         if (driver != null) {
             driver.quit();
         }
-        if (report != null)
+        // if (report != null)
             report.flush();
     }
 
