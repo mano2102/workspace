@@ -2,6 +2,7 @@ package com.example;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,14 +22,28 @@ public class WindowHandling {
         driver.get("https://demoqa.com/browser-windows");
         String currentURL = driver.getCurrentUrl();
         Thread.sleep(4000);
-     
-        WebElement clickNewtab= driver.findElement(By.xpath("//*[@id=\"tabButton\"]");
+
+        WebElement clickNewtab = driver.findElement(By.xpath("//*[@id=\"tabButton\"]"));
         clickNewtab.click();
 
+        String parentwindow = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
+        for (String windowHandle : windowHandles) {
+            if (!parentwindow.equals(windowHandle)) {
+                driver.switchTo().window(windowHandle);
+            }
 
+        }
+        System.out.println("==Parent Window Handlee== " + parentwindow);
         // print the content from next page
+        WebElement para = driver.findElement(By.xpath("//*[@id=\"sampleHeading\"]"));
+        String text = para.getText();
+        System.out.println(text);
+        driver.close();
 
-driver.quit();
+        driver.switchTo().window(parentwindow);
+        driver.close();
+        // driver.quit();
 
     }
 }
