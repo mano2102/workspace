@@ -19,14 +19,16 @@ import org.testng.asserts.Assertion;
 
 import com.example.pages.LoginPagePages;
 import com.example.utils.ExcelReader;
+import com.example.utils.Screenshot;
 import com.example.utils.WebDriverHelper;
 
 public class Hybrid {
 
-    WebDriver driver = null;
+    public WebDriver driver = null;
 
     LoginPagePages pages = null;
     WebDriverHelper helper = null;
+    Screenshot shot =null;
 
     @BeforeMethod
     public void launch_browser() throws MalformedURLException, InterruptedException {
@@ -39,6 +41,7 @@ public class Hybrid {
         String currentURL = driver.getCurrentUrl();
         pages = new LoginPagePages(driver);
         helper = new WebDriverHelper(driver);
+        shot= new Screenshot(driver);
         System.out.println(currentURL);
         Thread.sleep(4000);
     }
@@ -73,7 +76,9 @@ public class Hybrid {
         String username = ExcelReader.readExcel(excelPath, excelSheetName, 1, 0);
         String password = ExcelReader.readExcel(excelPath, excelSheetName, 1, 1);
         pages.enter_username(username);
+        shot.screenshot("username_screenshot");
         pages.enter_password(password);
+        shot.screenshot("password_screenshot");
         pages.login_button();
 
     }
