@@ -25,7 +25,7 @@ import com.example.utils.WebDriverHelper;
 public class Hybrid {
 
     public WebDriver driver = null;
-
+      Extent
     LoginPagePages pages = null;
     WebDriverHelper helper = null;
     Screenshot shot = null;

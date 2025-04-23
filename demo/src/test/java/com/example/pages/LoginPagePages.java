@@ -23,7 +23,7 @@ public class LoginPagePages {
 
     public void enter_username(String username) {
         WebElement usernameBox = WebDriverHelper.getElementByXpath(loginUiLocators.usernameXpath);
-        logger.info("Username box is identified");
+        logger.warn("Username box is identified");
         usernameBox.sendKeys(username);
         logger.info("Username  is entered.");
 

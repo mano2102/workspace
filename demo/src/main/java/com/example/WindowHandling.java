@@ -4,9 +4,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver.Window;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -14,6 +16,8 @@ import org.openqa.selenium.support.ui.Select;
 
 public class WindowHandling {
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
+
+      
         String gridurl = "http://localhost:4444";
         WebDriver driver = new RemoteWebDriver(new URL(gridurl), new ChromeOptions());
         // maximize
@@ -24,6 +28,7 @@ public class WindowHandling {
         Thread.sleep(4000);
 
         WebElement clickNewtab = driver.findElement(By.xpath("//*[@id=\"tabButton\"]"));
+        // logger.info("Clicked");
         clickNewtab.click();
 
         String parentwindow = driver.getWindowHandle();
