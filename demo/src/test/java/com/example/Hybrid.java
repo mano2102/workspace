@@ -28,7 +28,7 @@ public class Hybrid {
 
     LoginPagePages pages = null;
     WebDriverHelper helper = null;
-    Screenshot shot =null;
+    Screenshot shot = null;
 
     @BeforeMethod
     public void launch_browser() throws MalformedURLException, InterruptedException {
@@ -41,7 +41,7 @@ public class Hybrid {
         String currentURL = driver.getCurrentUrl();
         pages = new LoginPagePages(driver);
         helper = new WebDriverHelper(driver);
-        shot= new Screenshot(driver);
+        shot = new Screenshot(driver);
         System.out.println(currentURL);
         Thread.sleep(4000);
     }

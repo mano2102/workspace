@@ -19,7 +19,9 @@ public class Screenshot {
     }
 
     public void screenshot(String screenshotName) throws IOException {
-        String folderPath = "/home/coder/project/workspace/demo/screenshots/";
+        // String folderPath = "/home/coder/project/workspace/demo/screenshots/";
+        String folderPath = System.getProperty("user.dir");
+        System.out.println(folderPath);
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(screenshot, new File(folderPath + screenshotName + ".png"));
 
