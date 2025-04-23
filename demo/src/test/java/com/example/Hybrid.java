@@ -11,8 +11,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
@@ -23,22 +25,28 @@ import com.aventstack.extentreports.model.Report;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.example.pages.LoginPagePages;
 import com.example.utils.ExcelReader;
+import com.example.utils.ExtentReportsHelper;
 import com.example.utils.Screenshot;
 import com.example.utils.WebDriverHelper;
 
 public class Hybrid {
 
     public WebDriver driver = null;
-    ExtentSparkReporter spark = new ExtentSparkReporter("reports/extentreports.html");
-    ExtentReports report = new ExtentReports();
+
+    static ExtentReports report = null;
 
     LoginPagePages pages = null;
     WebDriverHelper helper = null;
     Screenshot shot = null;
 
+    @BeforeClass
+    public static void initConfig() {
+
+        report = ExtentReportsHelper.extentreports();
+    }
+
     @BeforeMethod
     public void launch_browser() throws MalformedURLException, InterruptedException {
-        report.attachReporter(spark);
         String gridurl = "http://localhost:4444";
         driver = new RemoteWebDriver(new URL(gridurl), new ChromeOptions());
         // maximize
@@ -58,7 +66,13 @@ public class Hybrid {
         if (driver != null) {
             driver.quit();
         }
-        // if (report != null)
+       
+
+    }
+
+    @AfterClass
+    public static void flush() {
+        if (report != null)
             report.flush();
     }
 
@@ -85,11 +99,12 @@ public class Hybrid {
         String username = ExcelReader.readExcel(excelPath, excelSheetName, 1, 0);
         String password = ExcelReader.readExcel(excelPath, excelSheetName, 1, 1);
         pages.enter_username(username);
-        report.createTest("TC_001").log(Status.PASS, "Extent report with tc 001");
+        // report.createTest("TC_001").log(Status.PASS, "Extent report with tc 001");
         shot.screenshot("username_screenshot");
-        pages.enter_password(password);
-        shot.screenshot("password_screenshot");
+        // pages.enter_password(password);
+        // shot.screenshot("password_screenshot");
         pages.login_button();
+        
 
     }
 
