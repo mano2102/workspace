@@ -20,6 +20,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
 
 import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.Report;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -91,7 +93,7 @@ public class Hybrid {
     }
 
     @Test
-    public void login_demoPage() throws IOException {
+    public void login_demoPage() throws IOException, InterruptedException {
         driver.get("https://demoqa.com/login");
         String excelPath = "/home/coder/project/workspace/demo/testdata/login.xlsx";
         String excelSheetName = "Sheet1";
@@ -100,27 +102,33 @@ public class Hybrid {
         pages.enter_username(username);
         // report.createTest("TC_001").log(Status.PASS, "Extent report with tc 001");
         shot.screenshot("username_screenshot");
-        pages.enter_password(password);
+        pages.enter_password("pass");
         // shot.screenshot("password_screenshot");
 
         pages.login_button();
 
         String logoutXpath = "(//button[@id=\"submit\" and@type='button'])[1]";
+        Thread.sleep(3000);
         boolean isDisplayed = false;
+
+        ExtentTest test = report.createTest("Test case login");
 
         try {
             WebElement logoutButton = driver.findElement(By.xpath(logoutXpath));
             isDisplayed = logoutButton.isDisplayed();
 
         } catch (Exception e) {
-            report.createTest("Exeception caused in login ");
+            test.log(Status.WARNING, "Exception Occured" + e.getMessage());
         }
 
         if (isDisplayed) {
-            report.createTest("Testcasepassed").log(Status.PASS, "Login In done");
+            // report.createTest("Testcasepassed").log(Status.PASS, "Login In done");
+            test.log(Status.PASS, "Login Success");
         } else {
+            Screenshot shrScreenshot = new Screenshot(driver);
+            String path = shrScreenshot.screenshot("loginFailedScreenshot");
 
-            report.createTest("Testcase failed").log(Status.FAIL, "Login failed");
+            test.fail( "Login Failed ",MediaEntityBuilder.createScreenCaptureFromPath(path).build());
         }
 
     }
